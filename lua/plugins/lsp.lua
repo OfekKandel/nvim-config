@@ -44,7 +44,7 @@ return {
             { "gi",         vim.lsp.buf.implementation,                         desc = "(LSP) Goto Implementation" },
             { "gT",         vim.lsp.buf.type_definition,                        desc = "(LSP) Goto Type definition" },
             { "K",          vim.lsp.buf.hover,                                  desc = "(LSP) Hover" },
-            { "<c-k>",      vim.lsp.buf.signature_help,                         desc = "(LSP) Signature Help", mode = 'i' },
+            { "<c-k>",      vim.lsp.buf.signature_help,                         desc = "(LSP) Signature Help",                mode = 'i' },
             { "<leader>ca", vim.lsp.buf.code_action,                            desc = "(LSP) Code Action" },
             { '<leader>cd', vim.diagnostic.open_float,                          desc = "(LSP) Diagnostics - Line diagnostics" },
             { "<leader>rn", vim.lsp.buf.rename,                                 desc = "(LSP) ReName" },
@@ -113,9 +113,18 @@ return {
         dependencies = { "rafamadriz/friendly-snippets" },
         config = function(_, _)
             require("luasnip.loaders.from_vscode").lazy_load()
+            local ls = require("luasnip")
+            local s = ls.snippet
+            local t = ls.text_node
+            local i = ls.insert_node
+            ls.add_snippets('cpp', {
+                s("ndocs", {
+                    t("/* [DOCS NEEDED] */")
+                })
+            })
         end,
         keys = {
-            { "<C-l>", function() require('luasnip').jump(1) end, desc = "Progress in snippet", mode = "i" },
+            { "<C-l>", function() require('luasnip').jump(1) end,  desc = "Progress in snippet", mode = "i" },
             { "<C-h>", function() require('luasnip').jump(-1) end, desc = "Progress in snippet", mode = "i" }
         },
         -- follow latest release.
@@ -135,10 +144,11 @@ return {
         cmd = { 'Trouble' },
         keys = {
             { "<leader>xx", function() require("trouble").toggle() end,                        desc = "Trouble - Open" },
-            { "<leader>xd", function() require("trouble").toggle("document_diagnostics") end,  desc ="Trouble - Open Document" },
-            { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, desc ="Trouble - Open Workspace" },
+            { "<leader>xd", function() require("trouble").toggle("document_diagnostics") end,  desc = "Trouble - Open Document" },
+            { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, desc = "Trouble - Open Workspace" },
             { "<leader>xq", function() require("trouble").toggle("quickfix") end,              desc = "Trouble - Quickfix" },
             { "<leader>xl", function() require("trouble").toggle("loclist") end,               desc = "Trouble - Loclist" },
+            { "<leader>xt", ":TodoTrouble<CR>",                                                    desc = "Trouble - Todos" },
             { "gR",         function() require("trouble").toggle("lsp_references") end,        desc = "LSP - Trouble References" },
         },
         dependencies = { "nvim-tree/nvim-web-devicons", "neovim/nvim-lspconfig" },
