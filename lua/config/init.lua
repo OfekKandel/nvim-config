@@ -9,7 +9,6 @@ vim.keymap.set("n", "<C-x>", "<cmd>bd<CR>", { desc = "Close current buffer" })
 -- Insert empty line without entering insert mode
 vim.keymap.set('n', '<leader>o', ':<C-u>call append(line("."), repeat([""], v:count1))<CR>', { desc = "Insert empty line below" })
 vim.keymap.set('n', '<leader>O', ':<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>', { desc = "Insert empty line above" })
-vim.keymap.set('n', 'U', '<C-r>', {}) -- use U for redo
 
 
 -- Move to window using the <ctrl> hjkl keys
