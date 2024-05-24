@@ -19,7 +19,7 @@ return {
             { "<leader>fr", function() require('telescope.builtin').oldfiles() end },
             { "<leader>fj", function() require('telescope.builtin').jumplist() end },
             { "<leader>fk", function() require('telescope.builtin').keymaps() end },
-            { "<leader>fs", function() require('telescope.builtin').lsp_workspace_symbols() end },
+            { "<leader>fs", function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end },
             { "<leader>fu", function() require('telescope').extensions.undo.undo() end },
         },
         config = function(_, opts)
@@ -44,7 +44,7 @@ return {
             columns = {
                 "icon",
             },
-            skip_confirm_for_simple_edits = false,
+            skip_confirm_for_simple_edits = true,
             constrain_cursor = "editable",
         },
     },
