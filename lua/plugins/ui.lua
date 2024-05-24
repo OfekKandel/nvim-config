@@ -4,7 +4,7 @@ return {
         "nvim-lualine/lualine.nvim",
         event = "VeryLazy",
         opts = {
-            theme = 'gruvbox',
+            theme = 'auto',
             sections = {
                 lualine_a = { 'mode' },
                 lualine_b = { 'branch', 'diff', 'diagnostics' },
@@ -61,6 +61,7 @@ return {
     -- Load last color on startup
     {
         "raddari/last-color.nvim",
+        priority = 1000,
         lazy = false, -- Loads on startup
         config = function()
             local theme = require('last-color').recall() or 'gruvbox'
@@ -84,4 +85,10 @@ return {
         main = 'github-theme',
     },
     'sainnhe/everforest',
+    'NLKNguyen/papercolor-theme',
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1000
+    }
 }
