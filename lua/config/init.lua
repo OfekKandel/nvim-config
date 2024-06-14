@@ -34,6 +34,18 @@ vim.cmd('au VimLeave,VimSuspend * set guicursor=a:ver1-blinkon0')
 -- Nice Autocommands
 vim.api.nvim_create_augroup('bufcheck', { clear = true })
 
+-- General transparent themes
+vim.api.nvim_create_autocmd('ColorScheme', {
+    callback = function()
+        vim.cmd("highlight Normal guibg=none")
+        vim.cmd("highlight Terminal guibg=none")
+        vim.cmd("highlight EndOfBuffer guibg=none")
+        vim.cmd("highlight FoldColumn guibg=none")
+        vim.cmd("highlight Folded guibg=none")
+        vim.cmd("highlight SignColumn guibg=none")
+    end
+})
+
 -- reload config file on change
 vim.api.nvim_create_autocmd('BufWritePost', {
     group   = 'bufcheck',
