@@ -21,9 +21,6 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = tr
 -- Clear search with <esc>
 vim.keymap.set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
--- Transparent background
-vim.cmd("highlight Normal guibg=none")
-
 -- Load cursor fix
 vim.cmd('au VimEnter,VimResume * set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50\
   \\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor\
@@ -35,16 +32,16 @@ vim.cmd('au VimLeave,VimSuspend * set guicursor=a:ver1-blinkon0')
 vim.api.nvim_create_augroup('bufcheck', { clear = true })
 
 -- General transparent themes
-vim.api.nvim_create_autocmd('ColorScheme', {
-    callback = function()
-        vim.cmd("highlight Normal guibg=none")
-        vim.cmd("highlight Terminal guibg=none")
-        vim.cmd("highlight EndOfBuffer guibg=none")
-        vim.cmd("highlight FoldColumn guibg=none")
-        vim.cmd("highlight Folded guibg=none")
-        vim.cmd("highlight SignColumn guibg=none")
-    end
-})
+-- vim.api.nvim_create_autocmd('ColorScheme', {
+--     callback = function()
+--         vim.cmd("highlight Normal guibg=none")
+--         vim.cmd("highlight Terminal guibg=none")
+--         vim.cmd("highlight EndOfBuffer guibg=none")
+--         vim.cmd("highlight FoldColumn guibg=none")
+--         vim.cmd("highlight Folded guibg=none")
+--         vim.cmd("highlight SignColumn guibg=none")
+--     end
+-- })
 
 -- reload config file on change
 vim.api.nvim_create_autocmd('BufWritePost', {
