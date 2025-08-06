@@ -17,25 +17,7 @@ return {
             },
         },
         config = function(_, opts)
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
             vim.diagnostic.config(opts.diagnostics)
-            require("mason-lspconfig").setup_handlers {
-                function(server_name)
-                    require('lspconfig')[server_name].setup {
-                        capabilities = capabilities,
-                    }
-                end,
-                ["omnisharp"] = function()
-                    require("lspconfig").omnisharp.setup {
-                        cmd = { "dotnet", "/Users/ofek/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
-                        enable_editorconfig_support = true,
-                        -- Enables support for roslyn analyzers, code fixes and rulesets.
-                        enable_roslyn_analyzers = true,
-                        organize_imports_on_format = true,
-                        enable_import_completion = true,
-                    }
-                end
-            }
         end,
         keys = {
             { "gd",         vim.lsp.buf.definition,                             desc = "(LSP) Goto Definition" },
@@ -60,7 +42,7 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "FelipeLema/cmp-async-path",
-            "/onsails/lspkind.nvim",
+            "onsails/lspkind.nvim",
         },
         event = "InsertEnter",
         opts = function()
@@ -149,7 +131,7 @@ return {
             { "<leader>xq", function() require("trouble").toggle("quickfix") end,              desc = "Trouble - Quickfix" },
             { "<leader>xl", function() require("trouble").toggle("loclist") end,               desc = "Trouble - Loclist" },
             { "<leader>xt", ":TodoTrouble<CR>",                                                    desc = "Trouble - Todos" },
-            { "gR",         function() require("trouble").toggle("lsp_references") end,        desc = "LSP - Trouble References" },
+            { "gr",         function() require("trouble").toggle("lsp_references") end,        desc = "LSP - Trouble References" },
         },
         dependencies = { "nvim-tree/nvim-web-devicons", "neovim/nvim-lspconfig" },
         opts = {},
@@ -170,6 +152,26 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         dependencies = { "williamboman/mason.nvim" },
+        opts = {
+            handlers = {
+                function(server_name)
+                    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+                    require('lspconfig')[server_name].setup {
+                        capabilities = capabilities,
+                    }
+                end,
+                -- ["omnisharp"] = function()
+                --     require("lspconfig").omnisharp.setup {
+                --         cmd = { "dotnet", "/Users/ofek/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+                --         enable_editorconfig_support = true,
+                --         -- Enables support for roslyn analyzers, code fixes and rulesets.
+                --         enable_roslyn_analyzers = true,
+                --         organize_imports_on_format = true,
+                --         enable_import_completion = true,
+                --     }
+                -- end
+            }
+        }
     },
 
     -- LSP Progress
