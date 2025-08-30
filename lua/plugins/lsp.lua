@@ -3,7 +3,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPost", "BufNewFile" }, -- Loads on startup, after UI
-        dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp", "linrongbin16/lsp-progress.nvim" },
+        dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp", "linrongbin16/lsp-progress.nvim", "antosha417/nvim-lsp-file-operations" },
         opts = {
             -- options for vim.diagnostic.config()
             diagnostics = {
@@ -18,6 +18,12 @@ return {
         },
         config = function(_, opts)
             vim.diagnostic.config(opts.diagnostics)
+            local lspconfig = require("lspconfig")
+            local cmp_nvim_lsp = require("cmp_nvim_lsp")
+            local capabilities = cmp_nvim_lsp.default_capabilities()
+            lspconfig["sourcekit"].setup({
+                capabilities = capabilities,
+            })
         end,
         keys = {
             { "gd",         vim.lsp.buf.definition,                             desc = "(LSP) Goto Definition" },
@@ -130,7 +136,7 @@ return {
             { "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end, desc = "Trouble - Open Workspace" },
             { "<leader>xq", function() require("trouble").toggle("quickfix") end,              desc = "Trouble - Quickfix" },
             { "<leader>xl", function() require("trouble").toggle("loclist") end,               desc = "Trouble - Loclist" },
-            { "<leader>xt", ":TodoTrouble<CR>",                                                    desc = "Trouble - Todos" },
+            { "<leader>xt", ":TodoTrouble<CR>",                                                desc = "Trouble - Todos" },
             { "gr",         function() require("trouble").toggle("lsp_references") end,        desc = "LSP - Trouble References" },
         },
         dependencies = { "nvim-tree/nvim-web-devicons", "neovim/nvim-lspconfig" },
@@ -178,5 +184,9 @@ return {
     {
         'linrongbin16/lsp-progress.nvim',
         config = true
-    }
+    },
+
+
+    -- Extra functionality
+    { "antosha417/nvim-lsp-file-operations", config = true }
 }
